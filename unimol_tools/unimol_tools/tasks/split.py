@@ -15,6 +15,7 @@ from sklearn.model_selection import (
     GroupKFold, 
     KFold, 
     StratifiedKFold,
+    StratifiedGroupKFold
 )
 
 
@@ -48,6 +49,8 @@ class Splitter(object):
             splitter = GroupKFold(n_splits=self.n_splits)
         elif self.method == 'stratified':
             splitter = StratifiedKFold(n_splits=self.n_splits, shuffle=True, random_state=self.seed)
+        elif self.method == 'stratifiedscaffold' or self.method == 'stratifiedgroup':
+            splitter = StratifiedGroupKFold(n_splits=self.n_splits, shuffle=True, random_state=self.seed)
         else:
             raise ValueError('Unknown splitter method: {}fold - {}'.format(self.n_splits, self.method))
 
